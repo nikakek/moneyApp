@@ -1,14 +1,13 @@
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import React, { useRef, useState } from "react";
 import {
   FlatList,
   StyleSheet,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
   View,
 } from "react-native";
+import { Button } from "../components/Button";
 
 const pagesData = [
   {
@@ -31,7 +30,7 @@ const pagesData = [
 export default function Index() {
   const { width } = useWindowDimensions();
   const [currentPage, setCurrentPage] = useState(0);
-  const flatListRef = useRef();
+  const flatListRef = useRef<FlatList<any>>(null);
 
   const handleNext = () => {
     if (currentPage < pagesData.length - 1) {
@@ -43,11 +42,12 @@ export default function Index() {
     }
   };
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: {
+    nativeEvent: { contentOffset: { x: any } };
+  }) => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const newPage = Math.round(offsetX / width);
 
-    // Only allow backward scrolling
     if (newPage > currentPage) {
       flatListRef.current?.scrollToIndex({
         index: currentPage,
@@ -58,7 +58,13 @@ export default function Index() {
     }
   };
 
-  const renderItem = ({ item, index }) => (
+  type PageData = {
+    image: any;
+    title: string;
+    subtitle: string;
+  };
+
+  const renderItem = ({ item, index }: { item: PageData; index: number }) => (
     <View style={[styles.pageContainer, { width }]}>
       <Image
         source={require("../assets/images/logo.png")}
@@ -69,7 +75,7 @@ export default function Index() {
         source={item.image}
         style={[
           styles.image,
-          index === 1 && { width: 246, height: 203 },
+          index === 1 && { width: 187, height: 202 },
           index === 2 && { width: 246, height: 203 },
         ]}
         contentFit="cover"
@@ -104,27 +110,11 @@ export default function Index() {
             />
           ))}
         </View>
-        <TouchableOpacity onPress={handleNext}>
-          <LinearGradient
-            colors={["#4960F9", "#1433FF"]}
-            start={{ x: 0, y: 0.5 }}
-            end={{ x: 1, y: 0.5 }}
-            style={styles.button}
-          >
-            <View style={styles.buttonContent}>
-              <Text style={styles.buttonText}>
-                {currentPage === pagesData.length - 1 ? "Get Started" : "Next"}
-              </Text>
-              {currentPage !== pagesData.length - 1 && (
-                <Image
-                  source={require("../assets/images/arrowRight.png")}
-                  style={styles.buttonIcon}
-                  contentFit="contain"
-                />
-              )}
-            </View>
-          </LinearGradient>
-        </TouchableOpacity>
+        <Button
+          text={currentPage === pagesData.length - 1 ? "Get Started" : "Next"}
+          onPress={handleNext}
+          showArrow={currentPage !== pagesData.length - 1}
+        />
       </View>
     </View>
   );
@@ -193,27 +183,5 @@ const styles = StyleSheet.create({
   activeDot: {
     backgroundColor: "#2743FD",
     width: 22,
-  },
-  button: {
-    width: 153,
-    height: 64,
-    borderRadius: 28,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "600",
-    fontFamily: "Inter",
-  },
-  buttonContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 39,
-  },
-  buttonIcon: {
-    width: 19,
-    height: 13.3,
   },
 });

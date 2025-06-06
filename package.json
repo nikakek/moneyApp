@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "start:wsl": "REACT_NATIVE_PACKAGER_HOSTNAME=192.168.0.247 expo start"
+    "nika": "REACT_NATIVE_PACKAGER_HOSTNAME=192.168.0.247 expo start"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
