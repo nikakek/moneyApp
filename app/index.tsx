@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import { router } from "expo-router";
 import React, { useRef, useState } from "react";
 import {
   FlatList,
@@ -39,6 +40,9 @@ export default function Index() {
         index: currentPage + 1,
         animated: true,
       });
+    } else {
+      // Navigate to welcome page when on last page
+      router.push("/welcome");
     }
   };
 
