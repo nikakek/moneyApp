@@ -122,13 +122,12 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "100%",
   },
   pageContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingBottom: 30,
+    height: 704,
   },
   logo: {
     width: 71,
@@ -140,6 +139,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 202,
     alignSelf: "center",
+    marginTop: 80,
   },
   textContainer: {
     alignSelf: "flex-start",
@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     color: "rgba(39, 67, 253, 1)",
     maxWidth: 227,
+    marginTop: 125,
   },
   subtitle: {
     fontFamily: "Inter",
@@ -168,20 +169,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: 20,
-    marginBottom: 10,
+    marginBottom: 30,
   },
   dotContainer: {
     flexDirection: "row",
     gap: 8,
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 5,
+    height: 5,
+    borderRadius: "50%",
     backgroundColor: "rgba(39, 67, 253, 0.3)",
   },
   activeDot: {
     backgroundColor: "#2743FD",
+    borderRadius: 4,
+
     width: 22,
   },
 });

@@ -7,9 +7,36 @@ interface ButtonProps {
   text: string;
   onPress: () => void;
   showArrow?: boolean;
+  background?: "outline";
 }
 
-export function Button({ text, onPress, showArrow }: ButtonProps) {
+export function Button({ text, onPress, showArrow, background }: ButtonProps) {
+  const isOutline = background === "outline";
+
+  if (isOutline) {
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <View style={[styles.button, styles.outlineButton]}>
+          <View style={styles.buttonContent}>
+            <Text style={[styles.buttonText, styles.outlineText]}>{text}</Text>
+            <Image
+              source={require("../assets/images/buttonImage.png")}
+              style={styles.buttonImage}
+              contentFit="contain"
+            />
+            {showArrow && (
+              <Image
+                source={require("../assets/images/arrowRight.png")}
+                style={styles.buttonIcon}
+                contentFit="contain"
+              />
+            )}
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <TouchableOpacity onPress={onPress}>
       <LinearGradient
@@ -46,11 +73,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  outlineButton: {
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "rgba(85, 107, 255, 1)",
+  },
   buttonText: {
     color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "600",
     fontFamily: "Inter",
+  },
+  outlineText: {
+    color: "rgba(85, 107, 255, 1)",
   },
   buttonContent: {
     flexDirection: "row",
