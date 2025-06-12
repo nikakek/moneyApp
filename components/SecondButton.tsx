@@ -7,18 +7,20 @@ interface SecondButtonProps {
   text: string;
   onPress: () => void;
   background?: "outline";
+  disabled?: boolean;
 }
 
 export function SecondButton({
   text = "",
   onPress,
   background,
+  disabled = false,
 }: SecondButtonProps) {
   const isOutline = background === "outline";
 
   if (isOutline) {
     return (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} disabled={disabled}>
         <View style={[styles.button, styles.outlineButton]}>
           <View style={styles.buttonContent}>
             <Text style={[styles.buttonText, styles.outlineText]}>{text}</Text>
@@ -33,38 +35,47 @@ export function SecondButton({
             style={[styles.buttonImage, styles.outlineButtonImageRight]}
             contentFit="contain"
           />
+          {disabled && <View style={styles.disabledOverlay} />}
         </View>
       </TouchableOpacity>
     );
   }
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <LinearGradient
-        colors={["#4960F9", "#1433FF"]}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-        style={styles.button}
-      >
-        <View style={styles.buttonContent}>
-          <Text style={styles.buttonText}>{text}</Text>
-        </View>
-        <Image
-          source={require("../assets/images/buttonImage.png")}
-          style={[styles.buttonImage, styles.leftButtonImage]}
-          contentFit="contain"
-        />
-        <Image
-          source={require("../assets/images/buttonImage.png")}
-          style={[styles.buttonImage, styles.rightButtonImage]}
-          contentFit="contain"
-        />
-      </LinearGradient>
+    <TouchableOpacity onPress={onPress} disabled={disabled}>
+      <View style={styles.buttonContainer}>
+        <LinearGradient
+          colors={["#4960F9", "#1433FF"]}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={styles.button}
+        >
+          <View style={styles.buttonContent}>
+            <Text style={styles.buttonText}>{text}</Text>
+          </View>
+          <Image
+            source={require("../assets/images/bigButtonImage.png")}
+            style={[styles.buttonImage, styles.leftButtonImage]}
+            contentFit="contain"
+          />
+          <Image
+            source={require("../assets/images/bigButtonImage.png")}
+            style={[styles.buttonImage, styles.rightButtonImage]}
+            contentFit="contain"
+          />
+        </LinearGradient>
+        {disabled && <View style={styles.disabledOverlay} />}
+      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    position: "relative",
+    width: "100%",
+    height: "100%",
+  },
   button: {
     width: "100%",
     height: "100%",
@@ -105,18 +116,18 @@ const styles = StyleSheet.create({
   },
   buttonImage: {
     width: 106,
-    height: 40,
+    height: 41,
     position: "absolute",
     zIndex: 0,
   },
   leftButtonImage: {
     left: 0,
-    top: -5.3,
-    transform: [{ scaleX: -1 }],
+    top: -1,
   },
   rightButtonImage: {
     right: 0,
-    top: -5.3,
+    top: -1,
+    transform: [{ scaleX: -1 }],
   },
   outlineButtonImageLeft: {
     left: 0,
@@ -127,5 +138,15 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: -6,
     transform: [{ rotate: "180deg" }],
+  },
+  disabledOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    borderRadius: 28,
+    zIndex: 2,
   },
 });
