@@ -42,7 +42,7 @@ export default function Index() {
       });
     } else {
       // Navigate to welcome page when on last page
-      router.push("/welcome");
+      router.dismissTo("/welcome");
     }
   };
 
@@ -51,13 +51,7 @@ export default function Index() {
   }) => {
     const offsetX = event.nativeEvent.contentOffset.x;
     const newPage = Math.round(offsetX / width);
-
-    if (newPage > currentPage) {
-      flatListRef.current?.scrollToIndex({
-        index: currentPage,
-        animated: true,
-      });
-    } else if (newPage !== currentPage) {
+    if (newPage !== currentPage) {
       setCurrentPage(newPage);
     }
   };
@@ -102,7 +96,7 @@ export default function Index() {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={handleScroll}
-        scrollEnabled={false}
+        scrollEnabled={true}
       />
 
       <View style={styles.navigationContainer}>
@@ -114,11 +108,19 @@ export default function Index() {
             />
           ))}
         </View>
-        <Button
-          text={currentPage === pagesData.length - 1 ? "Get Started" : "Next"}
-          onPress={handleNext}
-          showArrow={currentPage !== pagesData.length - 1}
-        />
+        <View
+          style={[
+            styles.buttonWrapper,
+            currentPage === pagesData.length - 1 && styles.wideButtonWrapper,
+          ]}
+        >
+          <Button
+            text={currentPage === pagesData.length - 1 ? "Get Started" : "Next"}
+            onPress={handleNext}
+            showArrow={currentPage !== pagesData.length - 1}
+            centered={currentPage === pagesData.length - 1}
+          />
+        </View>
       </View>
     </View>
   );
@@ -188,7 +190,13 @@ const styles = StyleSheet.create({
   activeDot: {
     backgroundColor: "#2743FD",
     borderRadius: 4,
-
     width: 22,
+  },
+  buttonWrapper: {
+    width: 153,
+    height: 64,
+  },
+  wideButtonWrapper: {
+    width: 189,
   },
 });

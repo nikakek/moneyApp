@@ -1,47 +1,36 @@
-import ArrowRight from "@/assets/images/arrowRight";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-interface ButtonProps {
+interface SecondButtonProps {
   text: string;
   onPress: () => void;
-  showArrow?: boolean;
   background?: "outline";
-  centered?: boolean;
 }
 
-export function Button({
+export function SecondButton({
   text = "",
   onPress,
-  showArrow,
   background,
-  centered,
-}: ButtonProps) {
+}: SecondButtonProps) {
   const isOutline = background === "outline";
 
   if (isOutline) {
     return (
       <TouchableOpacity onPress={onPress}>
         <View style={[styles.button, styles.outlineButton]}>
-          <View
-            style={[
-              styles.buttonContent,
-              centered && styles.buttonContentCentered,
-            ]}
-          >
+          <View style={styles.buttonContent}>
             <Text style={[styles.buttonText, styles.outlineText]}>{text}</Text>
-            {showArrow && (
-              <ArrowRight
-                color="rgba(85, 107, 255, 1)"
-                style={styles.buttonIcon}
-              />
-            )}
           </View>
           <Image
             source={require("../assets/images/buttonImage.png")}
-            style={[styles.buttonImage, styles.outlineButtonImage]}
+            style={[styles.buttonImage, styles.outlineButtonImageLeft]}
+            contentFit="contain"
+          />
+          <Image
+            source={require("../assets/images/buttonImage.png")}
+            style={[styles.buttonImage, styles.outlineButtonImageRight]}
             contentFit="contain"
           />
         </View>
@@ -57,18 +46,17 @@ export function Button({
         end={{ x: 1, y: 0.5 }}
         style={styles.button}
       >
-        <View
-          style={[
-            styles.buttonContent,
-            centered && styles.buttonContentCentered,
-          ]}
-        >
+        <View style={styles.buttonContent}>
           <Text style={styles.buttonText}>{text}</Text>
-          {showArrow && <ArrowRight color="#fff" style={styles.buttonIcon} />}
         </View>
         <Image
           source={require("../assets/images/buttonImage.png")}
-          style={styles.buttonImage}
+          style={[styles.buttonImage, styles.leftButtonImage]}
+          contentFit="contain"
+        />
+        <Image
+          source={require("../assets/images/buttonImage.png")}
+          style={[styles.buttonImage, styles.rightButtonImage]}
           contentFit="contain"
         />
       </LinearGradient>
@@ -84,6 +72,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "relative",
     overflow: "hidden",
+    fontFamily: "Montserrat",
+    fontWeight: "400",
+    fontSize: 20,
+    lineHeight: 20,
+    letterSpacing: 0,
+    textAlign: "center",
+    textTransform: "capitalize",
   },
   outlineButton: {
     backgroundColor: "#FFFFFF",
@@ -92,40 +87,45 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "600",
-    fontFamily: "Inter",
+    fontSize: 20,
+    fontWeight: "400",
+    fontFamily: "Montserrat",
+    lineHeight: 20,
+    textAlign: "center",
   },
   outlineText: {
     color: "rgba(85, 107, 255, 1)",
   },
   buttonContent: {
     width: "100%",
-    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     paddingHorizontal: 24,
     zIndex: 1,
   },
-  buttonContentCentered: {
-    justifyContent: "center",
-    gap: 8,
-  },
-  buttonIcon: {
-    width: 19,
-    height: 13.3,
-  },
   buttonImage: {
-    width: 65,
-    height: 64,
+    width: 106,
+    height: 40,
     position: "absolute",
-    right: 0,
-    top: -5.3,
     zIndex: 0,
   },
-  outlineButtonImage: {
-    top: "auto",
+  leftButtonImage: {
+    left: 0,
+    top: -5.3,
+    transform: [{ scaleX: -1 }],
+  },
+  rightButtonImage: {
+    right: 0,
+    top: -5.3,
+  },
+  outlineButtonImageLeft: {
+    left: 0,
     bottom: -6,
     transform: [{ rotate: "180deg" }, { scaleX: -1 }],
+  },
+  outlineButtonImageRight: {
+    right: 0,
+    bottom: -6,
+    transform: [{ rotate: "180deg" }],
   },
 });
