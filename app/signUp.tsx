@@ -274,7 +274,11 @@ const SignUp = () => {
                   },
                 ]}
               >
-                <Button text="Sign Up" onPress={() => {}} showArrow={true} />
+                <Button
+                  text="Sign Up"
+                  onPress={() => router.push("/profile")}
+                  showArrow={true}
+                />
               </View>
             </Animated.View>
           </ScrollView>
