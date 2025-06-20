@@ -273,7 +273,11 @@ const SignIn = () => {
                   },
                 ]}
               >
-                <Button text="Sign In" onPress={() => {}} showArrow={true} />
+                <Button
+                  text="Sign In"
+                  onPress={() => router.dismissTo("/homePage")}
+                  showArrow={true}
+                />
               </View>
             </Animated.View>
           </ScrollView>
