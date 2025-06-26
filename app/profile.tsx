@@ -46,7 +46,7 @@ export default function Profile() {
 
   const handleComplete = () => {
     if (isFormComplete) {
-      router.dismissTo("/homePage");
+      router.dismissTo("/tabs");
     }
   };
 

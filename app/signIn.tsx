@@ -275,7 +275,7 @@ const SignIn = () => {
               >
                 <Button
                   text="Sign In"
-                  onPress={() => router.dismissTo("/homePage")}
+                  onPress={() => router.dismissTo("/tabs")}
                   showArrow={true}
                 />
               </View>
