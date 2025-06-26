@@ -1,9 +1,12 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Stack } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SideMenu } from "../../components/SideMenu";
 
 export default function HomePage() {
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -14,10 +17,15 @@ export default function HomePage() {
         style={styles.header}
       >
         <View style={styles.headerRow}>
-          <Image
-            source={require("../../assets/images/menu.png")}
-            style={styles.menuIcon}
-          />
+          <TouchableOpacity
+            onPress={() => setIsMenuVisible(true)}
+            activeOpacity={0.7}
+          >
+            <Image
+              source={require("../../assets/images/menu.png")}
+              style={styles.menuIcon}
+            />
+          </TouchableOpacity>
           <Image
             source={require("../../assets/images/pfp.png")}
             style={styles.pfpIcon}
@@ -40,7 +48,6 @@ export default function HomePage() {
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={() => {
-            /* TODO: Add action */
           }}
         >
           <LinearGradient
@@ -62,6 +69,12 @@ export default function HomePage() {
           </LinearGradient>
         </TouchableOpacity>
       </View>
+
+      {/* Side Menu */}
+      <SideMenu
+        isVisible={isMenuVisible}
+        onClose={() => setIsMenuVisible(false)}
+      />
     </View>
   );
 }
@@ -162,7 +175,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 32,
-
   },
   bottomButtonText: {
     fontFamily: "Montserrat",

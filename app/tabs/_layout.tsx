@@ -28,7 +28,13 @@ export default function TabLayout() {
         options={{
           title: "Home",
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: "center", height: 42 }}>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+              }}
+            >
               <HomeTabIcon color={focused ? "#4960F9" : "#9E9E9E"} />
               <View
                 style={{
@@ -48,7 +54,13 @@ export default function TabLayout() {
         options={{
           title: "Notifications",
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: "center", height: 42 }}>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+              }}
+            >
               <NotificationsTabIcon color={focused ? "#4960F9" : "#9E9E9E"} />
               <View
                 style={{
@@ -68,7 +80,13 @@ export default function TabLayout() {
         options={{
           title: "Profile",
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: "center", height: 42 }}>
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+              }}
+            >
               <ProfileTabIcon color={focused ? "#4960F9" : "#9E9E9E"} />
               <View
                 style={{

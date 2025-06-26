@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 interface CheckmarkBtnProps {
   disabled?: boolean;
@@ -8,43 +8,38 @@ interface CheckmarkBtnProps {
 
 const CheckmarkBtn = ({ disabled = false, onPress }: CheckmarkBtnProps) => {
   return (
-    <View>
-      <TouchableOpacity
-        disabled={disabled}
-        onPress={onPress}
-        style={[styles.button, disabled && styles.buttonDisabled]}
-      >
-        <Text
-          style={[styles.buttonText, disabled && styles.buttonTextDisabled]}
-        >
-          Complete
-        </Text>
-        <Image
-          source={require("../assets/images/checkmark.png")}
-          style={[styles.checkmark, disabled && styles.checkmarkDisabled]}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={[styles.button, disabled && styles.buttonDisabled]}
+    >
+      <Text style={[styles.buttonText, disabled && styles.buttonTextDisabled]}>
+        Complete
+      </Text>
+      <Image
+        source={require("../assets/images/checkmark.png")}
+        style={[styles.checkmark, disabled && styles.checkmarkDisabled]}
+        resizeMode="contain"
+      />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 28,
-    backgroundColor: "rgba(255, 255, 255, 1)",
-    justifyContent: "center",
-    alignItems: "center",
     width: 315,
     height: 72,
-    display: "flex",
+    borderRadius: 28,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "rgba(39, 67, 253, 1)",
+    justifyContent: "center",
+    alignItems: "center",
     flexDirection: "row",
     gap: 10,
-    margin: "auto",
-    marginTop: 135,
   },
   buttonDisabled: {
-    backgroundColor: "rgba(255, 255, 255, 1)",
+    borderColor: "rgba(200, 200, 200, 1)",
   },
   buttonText: {
     color: "rgba(39, 67, 253, 1)",
